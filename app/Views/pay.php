@@ -1,14 +1,21 @@
-<!doctype html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>Buy ABC</title>
-</head>
-<body>
-  <h1>Buy ABC ($1)</h1>
+<?= $this->extend('layouts/main') ?>
 
-  <form method="post" action="<?= site_url('checkout') ?>">
-    <button type="submit">Pay with Stripe</button>
-  </form>
-</body>
-</html>
+<?= $this->section('content') ?>
+  <?php
+    // Variables del layout
+    $title = 'Buy ABC';
+    $heading = 'Buy ABC';
+    $subtitle = 'One-time payment of $1 via Stripe Checkout (test mode).';
+    $pillText = '$1 USD';
+  ?>
+
+  <div class="section row">
+    <p class="small">
+      You will be redirected to Stripe Checkout to complete the payment.
+    </p>
+
+    <form method="post" action="<?= site_url('checkout') ?>">
+      <button type="submit" class="btn btn-primary">Pay $1 with Stripe</button>
+    </form>
+  </div>
+<?= $this->endSection() ?>

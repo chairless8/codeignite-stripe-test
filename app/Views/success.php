@@ -1,22 +1,43 @@
-<!doctype html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>Success</title>
-</head>
-<body>
-  <h1>Payment success ✅</h1>
+<?= $this->extend('layouts/main') ?>
 
-  <p><strong>Session ID:</strong> <?= esc($session_id ?? '') ?></p>
+<?= $this->section('content') ?>
+  <?php
+    $title = 'Payment Success';
+    $heading = 'Payment successful ✅';
+    $subtitle = 'Stripe confirmed the checkout session.';
+    $pillText = !empty($status) ? $status : 'success';
+  ?>
 
-  <?php if (!empty($status)): ?>
-    <p><strong>Status:</strong> <?= esc($status) ?></p>
-  <?php endif; ?>
+  <div class="section row">
+    <span class="badge ok">Completed</span>
 
-  <?php if (!empty($amount) && !empty($currency)): ?>
-    <p><strong>Amount:</strong> <?= esc($amount) ?> (minor units) <?= esc($currency) ?></p>
-  <?php endif; ?>
+    <div class="kv">
+      <div class="kv-item">
+        <span>Session</span>
+        <?php
+          $sid = $session_id ?? '';
+          $sidShort = $sid ? substr($sid, 0, 12) . '…' . substr($sid, -6) : '';
+        ?>
+        <code title="<?= esc($sid) ?>"><?= esc($sidShort) ?></code>
+      </div>
 
-  <p><a href="<?= site_url('pay') ?>">Pay again</a></p>
-</body>
-</html>
+      <?php if (!empty($status)): ?>
+        <div class="kv-item">
+          <span>Status</span>
+          <code><?= esc($status) ?></code>
+        </div>
+      <?php endif; ?>
+
+      <?php if (!empty($amount) && !empty($currency)): ?>
+        <div class="kv-item">
+          <span>Amount</span>
+          <code><?= esc($amount) ?> (minor units) <?= esc($currency) ?></code>
+        </div>
+      <?php endif; ?>
+    </div>
+
+    <hr>
+
+    <a class="btn btn-primary" href="<?= site_url('pay') ?>">Pay again</a>
+  </div>
+<?= $this->endSection() ?>
